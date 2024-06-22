@@ -1,0 +1,132 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+class Student {
+private:
+    int studentMarks[6][5];
+
+public:
+    Student() {
+        srand(time(0));
+        for (int row = 0; row < 6; ++row) {
+            for (int col = 0; col < 5; ++col) {
+                studentMarks[row][col] = rand() % 100 + 1;
+            }
+        }
+    }
+
+    void printStudentMarks() const {
+        for (int row = 0; row < 6; ++row) {
+            for (int col = 0; col < 5; ++col) {
+                cout << studentMarks[row][col] << "\t";
+            }
+            cout << endl;
+        }
+    }
+
+    void bubbleSortRows() {
+        for (int row = 0; row < 6; ++row) {
+            for (int col = 0; col < 4; ++col) {
+                for (int iter = 0; iter < 4 - col; ++iter) {
+                    if (studentMarks[row][iter] > studentMarks[row][iter + 1]) {
+                        int temp = studentMarks[row][iter];
+                        studentMarks[row][iter] = studentMarks[row][iter + 1];
+                        studentMarks[row][iter + 1] = temp;
+                    }
+                }
+            }
+        }
+    }
+
+    void getSorted() const {
+        cout << "Sorted Student Marks (6x5 matrix):" << endl;
+        for (int row = 0; row < 6; ++row) {
+            cout << "Student " << row + 1 << ": ";
+            for (int col = 0; col < 5; ++col) {
+                cout << studentMarks[row][col] << "\t";
+            }
+            cout << endl;
+        }
+    }
+
+    void findEveryMax() {
+        int maxMarks[6];
+        for (int row = 0; row < 6; ++row) {
+            maxMarks[row] = studentMarks[row][0];
+            for (int col = 1; col < 5; ++col) {
+                if (studentMarks[row][col] > maxMarks[row]) {
+                    maxMarks[row] = studentMarks[row][col];
+                }
+            }
+        }
+
+        cout << "Every Student's Max Marks: ";
+        for (int row = 0; row < 6; ++row) {
+            cout << maxMarks[row] << " ";
+        }
+        cout << endl;
+    }
+
+    void sumMarkswithoutMax(int maxMarks[]) {
+        int count = 0;
+        int sum = 0;
+
+        for (int row = 0; row < 6; ++row) {
+            for (int col = 0; col < 5; ++col) {
+                if (studentMarks[row][col] != maxMarks[row]) {
+                    sum += studentMarks[row][col];
+                    count++;
+                }
+            }
+        }
+
+        cout << "Sum of marks without max marks: " << sum << endl;
+        cout << "Count of marks without max marks: " << count << endl;
+        cout << "Average in studentMarks: " << (float)sum / count << endl;
+    }
+
+    void findDuplicates() const {
+        bool foundDuplicates = false;
+
+        for (int row = 0; row < 6; ++row) {
+            for (int col1 = 0; col1 < 5; ++col1) {
+                for (int col2 = col1 + 1; col2 < 5; ++col2) {
+                    if (studentMarks[row][col1] == studentMarks[row][col2]) {
+                        if (!foundDuplicates) {
+                            cout << "Duplicates found:" << endl;
+                            foundDuplicates = true;
+                        }
+                        cout << "Duplicate values " << studentMarks[row][col1] << " at indexes (" << row << "," << col1 << ") and (" << row << "," << col2 << ")" << endl;
+                    }
+                }
+            }
+        }
+
+        if (!foundDuplicates) {
+            cout << "No duplicates found." << endl;
+        }
+    }
+};
+
+int main() {
+    Student student;
+    int maxMarks[6];
+
+    cout << "Original Student Marks (6x5 matrix):" << endl;
+    student.printStudentMarks();
+
+    student.bubbleSortRows();
+    cout << endl;
+    student.getSorted();
+    cout << endl;
+    student.findEveryMax();
+    cout << endl;
+    student.sumMarkswithoutMax(maxMarks);
+    cout << endl;
+    student.findDuplicates();
+
+    return 0;
+}
