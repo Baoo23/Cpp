@@ -1,0 +1,35 @@
+void createArr(int arr[], int size){
+  for(int elem=0;elem<size;++elem){
+    arr[elem]=rand()%10;
+  }
+}
+
+
+
+void printArr(int arr[], int size){
+  for(int elem=0;elem<size;++elem){
+    cout<<arr[elem]<<" ";
+  }
+}
+
+
+
+void bubbleSortArr(int arr[], int *size){
+  int tmp;
+  for(int elem = 0; elem < *size; ++elem){
+     for(int iter = 0; iter < *size-1;++iter){
+       if(arr[iter]<arr[iter+1]){
+         tmp=arr[iter];
+         arr[iter]=arr[iter+1];
+         arr[iter+1]=tmp;
+       }
+     }
+  }
+}
+
+
+void printSorted(int arr[], int size){
+  for(int elem=0;elem<size;++elem){
+    cout<<arr[elem]<<" ";
+  }
+}
