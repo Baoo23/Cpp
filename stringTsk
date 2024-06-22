@@ -81,5 +81,23 @@ int main() {
   }
 
   cout<<strncat(str2,str1,5);
+
+  int count = 0;
+  char target = 'l';
+  for(int i = 0; i < strlen(str1); ++i){
+    if(str1[i] == target){
+      count++;
+    }
+  }
+
+  string str = "Hello";
+  for(int len = 0; len < str.length(); ++len){
+     str[len] = toupper(str[len]);
+  }
+  cout<<str<<endl;
+
+  cout<<int(str[0])<<endl;
+  
+
   return 0;
 }
