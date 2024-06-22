@@ -1,0 +1,105 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string.h>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+void createArr(int lst[10], int size = 10) {
+    for (int elem = 0; elem < size; elem++) {
+        lst[elem] = 1 + rand() % 10;
+    }
+}
+
+void printArr(int lst[10], int size = 10) {
+    for (int elem = 0; elem < size; elem++) {
+        cout << lst[elem] << "\t";
+    }
+}
+
+void bubbleSort(int lst[10], int *size) {
+    for (int elem = 0; elem < *size; elem++) {
+        for (int iter = 0; iter < *size - 1; iter++) {
+            if (lst[iter] < lst[iter + 1]) { 
+                int temp = lst[iter];
+                lst[iter] = lst[iter + 1];
+                lst[iter + 1] = temp;
+            }
+        }
+    }
+}
+
+void printSorted(int lst[10], int size = 10) {
+    for (int elem = 0; elem < size; elem++) {
+        cout << lst[elem] << "\t";
+    }
+}
+
+void mainFunc(int &num) { 
+    num = 1 + rand() % 10; 
+    cout << "OurNum is: " << num << endl; 
+
+    switch (num % 4) { 
+    case 1:
+        cout << "Mod is -> " << num % 4 << endl;
+        break;
+    case 2:
+        cout << "Mod is -> " << num % 4 << endl;
+        break;
+    case 3:
+        cout << "Mod is -> " << num % 4 << endl;
+        break;
+    case 0:
+        cout << "Mod is -> " << num % 4 << endl;
+        break;
+    default:
+        cout << "Error" << endl;
+    }
+}
+
+
+void stringFunc(string str1, string str2){
+    string a = "Hello";
+    string b = "World";
+
+    int res = a.compare(b);
+    cout << res << endl; 
+    if (res == 0){
+        cout << "Strings are equal" << endl;
+    }
+    else if (res < 0){
+        cout << "String 1 is less than string 2" << endl;
+    }
+    else{
+        cout << "String 1 is greater than string 2" << endl;
+    }
+
+    a += b.substr(0, 5);
+    cout << a << endl;
+    cout << int(a[0]) << endl;
+    for(int len = 0; len < b.length(); len++){
+        b[len] = toupper(b[len]);
+    }
+    cout<<b<<endl;
+}
+
+int main() {
+    srand(time(NULL));
+    int lst[10];
+    int size = 10;
+    int num = 0;
+    cout << "Array: " << endl;
+    createArr(lst, size);
+    printArr(lst, size);
+    cout << endl;
+    cout << "Sorted Array: " << endl;
+    bubbleSort(lst, &size);
+    printSorted(lst, size);
+    cout<<endl;
+    mainFunc(num);
+    cout<<endl;
+    stringFunc("Hello", "World");
+    return 0; 
+}
