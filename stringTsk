@@ -1,105 +1,85 @@
 #include <iostream>
-#include <cstdlib>
 #include <ctime>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <string>
-#include <cctype>
+
 
 using namespace std;
 
-void createArr(int lst[10], int size = 10) {
-    for (int elem = 0; elem < size; elem++) {
-        lst[elem] = 1 + rand() % 10;
-    }
+void createArr(int arr[], int size){
+  for(int elem=0;elem<size;++elem){
+    arr[elem]=rand()%10;
+  }
 }
 
-void printArr(int lst[10], int size = 10) {
-    for (int elem = 0; elem < size; elem++) {
-        cout << lst[elem] << "\t";
-    }
+void printArr(int arr[], int size){
+  for(int elem=0;elem<size;++elem){
+    cout<<arr[elem]<<" ";
+  }
 }
 
-void bubbleSort(int lst[10], int *size) {
-    for (int elem = 0; elem < *size; elem++) {
-        for (int iter = 0; iter < *size - 1; iter++) {
-            if (lst[iter] < lst[iter + 1]) { 
-                int temp = lst[iter];
-                lst[iter] = lst[iter + 1];
-                lst[iter + 1] = temp;
-            }
-        }
-    }
+void bubbleSortArr(int arr[], int *size){
+  int tmp;
+  for(int elem = 0; elem < *size; ++elem){
+     for(int iter = 0; iter < *size-1;++iter){
+       if(arr[iter]<arr[iter+1]){
+         tmp=arr[iter];
+         arr[iter]=arr[iter+1];
+         arr[iter+1]=tmp;
+       }
+     }
+  }
 }
 
-void printSorted(int lst[10], int size = 10) {
-    for (int elem = 0; elem < size; elem++) {
-        cout << lst[elem] << "\t";
-    }
-}
-
-void mainFunc(int &num) { 
-    num = 1 + rand() % 10; 
-    cout << "OurNum is: " << num << endl; 
-
-    switch (num % 4) { 
-    case 1:
-        cout << "Mod is -> " << num % 4 << endl;
-        break;
-    case 2:
-        cout << "Mod is -> " << num % 4 << endl;
-        break;
-    case 3:
-        cout << "Mod is -> " << num % 4 << endl;
-        break;
-    case 0:
-        cout << "Mod is -> " << num % 4 << endl;
-        break;
-    default:
-        cout << "Error" << endl;
-    }
-}
-
-
-void stringFunc(string str1, string str2){
-    string a = "Hello";
-    string b = "World";
-
-    int res = a.compare(b);
-    cout << res << endl; 
-    if (res == 0){
-        cout << "Strings are equal" << endl;
-    }
-    else if (res < 0){
-        cout << "String 1 is less than string 2" << endl;
-    }
-    else{
-        cout << "String 1 is greater than string 2" << endl;
-    }
-
-    a += b.substr(0, 5);
-    cout << a << endl;
-    cout << int(a[0]) << endl;
-    for(int len = 0; len < b.length(); len++){
-        b[len] = toupper(b[len]);
-    }
-    cout<<b<<endl;
+void printSorted(int arr[], int size){
+  for(int elem=0;elem<size;++elem){
+    cout<<arr[elem]<<" ";
+  }
 }
 
 int main() {
-    srand(time(NULL));
-    int lst[10];
-    int size = 10;
-    int num = 0;
-    cout << "Array: " << endl;
-    createArr(lst, size);
-    printArr(lst, size);
-    cout << endl;
-    cout << "Sorted Array: " << endl;
-    bubbleSort(lst, &size);
-    printSorted(lst, size);
-    cout<<endl;
-    mainFunc(num);
-    cout<<endl;
-    stringFunc("Hello", "World");
-    return 0; 
+  int size = 10;
+  int arr[size];
+  srand(time(NULL));
+  cout<<"Array: "<<endl;
+  createArr(arr,size);
+  printArr(arr,size);
+  cout<<endl;
+  cout<<"Sorted: "<<" ";
+  bubbleSortArr(arr,&size);
+  printSorted(arr,size);
+  cout<<endl;
+
+  int num = rand()%10;
+  cout<<"Num is -> "<<num<<endl;
+  switch(num%4){
+    case 1:
+      cout<<"Mod is 1"<<endl;
+      break;
+    case 2:
+      cout<<"Mod is 2"<<endl;
+      break;
+    case 3:
+      cout<<"Mod is 3"<<endl;
+      break;
+    default:
+      cout<<"Mod is 0"<<endl;
+      break;
+  }
+
+  char str1[] = "Hello";
+  char str2[] = "World";
+  if(strcmp(str1,str2) == 0){
+    cout<<"Strings are equal"<<endl;
+  }
+  else if(strcmp(str1,str2) > 0){
+    cout<<"str1 > str2"<<endl;
+  }
+  else{
+    cout<<"str1 < str2"<<endl;
+  }
+
+  cout<<strncat(str2,str1,5);
+  return 0;
 }
