@@ -1,48 +1,48 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
 using namespace std;
 
 class Student {
 private:
     int studentMarks[6][5];
-
+    int searchMark;
 public:
     Student() {
-        srand(time(0));
-        for (int row = 0; row < 6; ++row) {
-            for (int col = 0; col < 5; ++col) {
-                studentMarks[row][col] = rand() % 100 + 1;
+        srand(time(NULL));
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 5; col++) {
+                studentMarks[row][col] = rand() % 30 + 1;
             }
         }
     }
 
-    void printStudentMarks() const {
-        for (int row = 0; row < 6; ++row) {
-            for (int col = 0; col < 5; ++col) {
-                cout << studentMarks[row][col] << "\t";
+    void getMarks() {
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 5; col++) {
+                cout << studentMarks[row][col] << " ";
             }
             cout << endl;
         }
     }
 
-    void bubbleSortRows() {
+    void sortMarks() {
+        int tmp;
         for (int row = 0; row < 6; ++row) {
-            for (int col = 0; col < 4; ++col) {
+            for (int col = 0; col < 5; ++col) {
                 for (int iter = 0; iter < 4 - col; ++iter) {
                     if (studentMarks[row][iter] > studentMarks[row][iter + 1]) {
-                        int temp = studentMarks[row][iter];
+                        tmp = studentMarks[row][iter];
                         studentMarks[row][iter] = studentMarks[row][iter + 1];
-                        studentMarks[row][iter + 1] = temp;
+                        studentMarks[row][iter + 1] = tmp;
                     }
                 }
             }
         }
     }
 
-    void getSorted() const {
-        cout << "Sorted Student Marks (6x5 matrix):" << endl;
+    void getSorted() {
+        cout << "Sorted Student Marks:" << endl;
         for (int row = 0; row < 6; ++row) {
             cout << "Student " << row + 1 << ": ";
             for (int col = 0; col < 5; ++col) {
@@ -52,7 +52,7 @@ public:
         }
     }
 
-    void findEveryMax() {
+    void findMaxMarks() {
         int maxMarks[6];
         for (int row = 0; row < 6; ++row) {
             maxMarks[row] = studentMarks[row][0];
@@ -63,16 +63,15 @@ public:
             }
         }
 
-        cout << "Every Student's Max Marks: ";
+        cout << "Max Marks:" << endl;
         for (int row = 0; row < 6; ++row) {
-            cout << maxMarks[row] << " ";
+            cout << "Student " << row + 1 << ": " << maxMarks[row] << endl;
         }
-        cout << endl;
     }
 
-    void sumMarkswithoutMax(int maxMarks[]) {
-        int count = 0;
+    void calculateMarks(int maxMarks[]) {
         int sum = 0;
+        int count = 0;
 
         for (int row = 0; row < 6; ++row) {
             for (int col = 0; col < 5; ++col) {
@@ -88,45 +87,42 @@ public:
         cout << "Average in studentMarks: " << (float)sum / count << endl;
     }
 
-    void findDuplicates() const {
-        bool foundDuplicates = false;
+    void setSearchMark(int mark) {
+        searchMark = mark;
+    }
 
+    void hasDuplicates() {
+        bool found = false;
         for (int row = 0; row < 6; ++row) {
-            for (int col1 = 0; col1 < 5; ++col1) {
-                for (int col2 = col1 + 1; col2 < 5; ++col2) {
-                    if (studentMarks[row][col1] == studentMarks[row][col2]) {
-                        if (!foundDuplicates) {
-                            cout << "Duplicates found:" << endl;
-                            foundDuplicates = true;
-                        }
-                        cout << "Duplicate values " << studentMarks[row][col1] << " at indexes (" << row << "," << col1 << ") and (" << row << "," << col2 << ")" << endl;
-                    }
+            for (int col = 0; col < 5; ++col) {
+                if (studentMarks[row][col] == searchMark) {
+                    cout << "Duplicate found at Student " << row + 1 << ", Index " << col << endl;
+                    found = true;
                 }
             }
         }
-
-        if (!foundDuplicates) {
-            cout << "No duplicates found." << endl;
+        if (!found) {
+            cout << "No duplicates found for the search mark " << searchMark << "." << endl;
         }
     }
 };
 
 int main() {
     Student student;
-    int maxMarks[6];
-
-    cout << "Original Student Marks (6x5 matrix):" << endl;
-    student.printStudentMarks();
-
-    student.bubbleSortRows();
+    student.getMarks();
+    student.sortMarks();
     cout << endl;
     student.getSorted();
     cout << endl;
-    student.findEveryMax();
+    student.findMaxMarks();
+
     cout << endl;
-    student.sumMarkswithoutMax(maxMarks);
-    cout << endl;
-    student.findDuplicates();
+    int searchMark;
+    cout << "Enter a mark to search for duplicates: ";
+    cin >> searchMark;
+    student.setSearchMark(searchMark);
+    student.hasDuplicates();
 
     return 0;
 }
+
