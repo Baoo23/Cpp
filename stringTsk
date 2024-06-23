@@ -1,103 +1,103 @@
 #include <iostream>
-#include <ctime>
 #include <cstdlib>
 #include <cstring>
 #include <string>
-
+#include <cctype>
 
 using namespace std;
 
-void createArr(int arr[], int size){
-  for(int elem=0;elem<size;++elem){
-    arr[elem]=rand()%10;
+void createArr(int arr[],int size){
+  for(int elem=0; elem< size; ++elem){
+    arr[elem] = 1 + rand()% 20;   
   }
 }
 
-void printArr(int arr[], int size){
-  for(int elem=0;elem<size;++elem){
-    cout<<arr[elem]<<" ";
+
+void getArr(int arr[],int size){
+  for(int elem = 0; elem<size; ++elem){
+    cout<<arr[elem]<<"\t";
   }
 }
 
-void bubbleSortArr(int arr[], int *size){
+void sortArr(int arr[], int *size){
   int tmp;
-  for(int elem = 0; elem < *size; ++elem){
-     for(int iter = 0; iter < *size-1;++iter){
-       if(arr[iter]<arr[iter+1]){
-         tmp=arr[iter];
-         arr[iter]=arr[iter+1];
-         arr[iter+1]=tmp;
-       }
-     }
+  for(int elem=0; elem<*size ;++elem){
+    for(int iter =0; iter < *size-1; ++iter){
+      if(arr[iter] < arr[iter+1]){
+        tmp = arr[iter];
+        arr[iter] = arr[iter+1];
+        arr[iter+1] = tmp;     
+      } 
+    }  
   }
 }
 
-void printSorted(int arr[], int size){
-  for(int elem=0;elem<size;++elem){
-    cout<<arr[elem]<<" ";
+
+void getSorted(int arr[], int size){
+  for(int elem = 0; elem < size; ++elem){
+    cout<<arr[elem]<<"\t";
   }
 }
+
 
 int main() {
-  int size = 10;
-  int arr[size];
   srand(time(NULL));
-  cout<<"Array: "<<endl;
+  int size = 10;
+  int arr[10];
   createArr(arr,size);
-  printArr(arr,size);
+  cout<<"Array: "<<endl;
+  getArr(arr,size);
   cout<<endl;
-  cout<<"Sorted: "<<" ";
-  bubbleSortArr(arr,&size);
-  printSorted(arr,size);
+  sortArr(arr,&size);
+  cout<<"Sorted array: "<<endl;
+  getSorted(arr,size);
   cout<<endl;
 
-  int num = rand()%10;
-  cout<<"Num is -> "<<num<<endl;
+  int num = 1+rand()%10;
+  cout<<"Number: "<<num<<endl;
   switch(num%4){
-    case 1:
-      cout<<"Mod is 1"<<endl;
-      break;
-    case 2:
-      cout<<"Mod is 2"<<endl;
-      break;
-    case 3:
-      cout<<"Mod is 3"<<endl;
-      break;
-    default:
-      cout<<"Mod is 0"<<endl;
-      break;
+    case 1: cout<<"Mod is 1"<<endl;break;
+    case 2: cout<<"Mod is 2"<<endl;break;
+    case 3: cout<<"Mod is 3"<<endl;break;
+    default:cout<<"Mod is 0"<<endl;break;
   }
 
-  char str1[] = "Hello";
-  char str2[] = "World";
-  if(strcmp(str1,str2) == 0){
+  char stringVar1[] = "Lion";
+  char stringVar2[] = "Tiger";
+  char stringVar3[] = "Bibiu";
+
+  if(strcmp(stringVar1, stringVar2) == 0){
     cout<<"Strings are equal"<<endl;
   }
-  else if(strcmp(str1,str2) > 0){
-    cout<<"str1 > str2"<<endl;
+  else if(strcmp(stringVar1, stringVar2) == -1){
+    cout<<"String 1 < String 2"<<endl;
   }
   else{
-    cout<<"str1 < str2"<<endl;
+    cout<<"String 1 > String 2"<<endl;
   }
 
-  cout<<strncat(str2,str1,5);
+  cout<<"The length of string 1 is ->" <<strlen(stringVar1)<<endl;
+ 
+  cout<<"The numeric value of first letter -> " <<int(stringVar1[0])<<endl;
+
+  // cout<<strncat(stringVar1, stringVar2, 3)<<endl;
+
+
+  for(int len = 0; len < strlen(stringVar1); ++len){
+    stringVar1[len] = toupper(stringVar1[len]);
+    
+  }
+
+  cout<<"String 1 in uppercase -> "<<stringVar1<<endl;
 
   int count = 0;
-  char target = 'l';
-  for(int i = 0; i < strlen(str1); ++i){
-    if(str1[i] == target){
-      count++;
+  char letter = 'i';
+  for(int len = 0; len < strlen(stringVar3); ++len){
+    if(stringVar3[len] == letter){
+      ++count;
     }
   }
-
-  string str = "Hello";
-  for(int len = 0; len < str.length(); ++len){
-     str[len] = toupper(str[len]);
-  }
-  cout<<str<<endl;
-
-  cout<<int(str[0])<<endl;
   
-
-  return 0;
+  cout<<"The letter "<<letter<<" is in the string "<<count<<" times"<<endl;
+  
 }
